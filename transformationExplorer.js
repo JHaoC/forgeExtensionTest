@@ -83,21 +83,21 @@ class TransExplorerExtension extends Autodesk.Viewing.Extension {
             nodeData.ID = selectedNode;
             nodeData.Name = this.findNodeNameById(selectedNode);
             nodeData.Parent = this.findNodeNameById(this.tree.getNodeParentId(selectedNode));
-            let transMat = this.getFragmentWorldMatrixByNodeId(event.nodeArray[0]).matrix[0];
-
-            // continue if it has transformation Matrix (meaning it is not a "group node")
-            if (transMat) {
-                nodeData.position = transMat.getPosition();
-            } else {
-                nodeData.position = new THREE.Vector3();
-            }
-            console.log(nodeData);
+            let transMat = this.getFragmentWorldMatrixByNodeId(event.nodeArray[0]);
+            console.log(transMat);
+            // // continue if it has transformation Matrix (meaning it is not a "group node")
+            // if (transMat) {
+            //     nodeData.position = transMat.getPosition();
+            // } else {
+            //     nodeData.position = new THREE.Vector3();
+            // }
+            // console.log(nodeData);
             this.infoName.innerText = nodeData.Name;
             this.infoParent.innerText = nodeData.Parent;
             this.infoId.innerText = nodeData.ID;
-            this.infoX.innerText = nodeData.position.x;
-            this.infoY.innerText = nodeData.position.y;
-            this.infoZ.innerText = nodeData.position.z;
+            this.infoX.innerText = transMat.matrix.x;
+            this.infoY.innerText = transMat.matrix.y;
+            this.infoZ.innerText = transMat.matrix.z;
 
         }
 
@@ -124,16 +124,19 @@ class TransExplorerExtension extends Autodesk.Viewing.Extension {
             matrix: [],
         };
         let viewer = this.viewer;
+
+        let bounds = new THREE.Box3();
+        const fragList = viewer.model.getFragmentList();
+
         this.tree.enumNodeFragments(nodeId, function (frag) {
-
-            let fragProxy = viewer.impl.getFragmentProxy(viewer.model, frag);
-            let matrix = new THREE.Matrix4();
-
-            fragProxy.getWorldMatrix(matrix);
-
+            let box = new THREE.Box3();
+            fragList.getWorldBounds( frag, box );
+            bounds.union( box );
             result.fragId.push(frag);
-            result.matrix.push(matrix);
-        });
+            //result.matrix.push(matrix);
+        }, true);
+        result.matrix = bounds.getCenter();
+        console.log(result);
         return result;
     }
 
