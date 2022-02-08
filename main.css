@@ -1,0 +1,154 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#MyViewerDiv {
+    border: 1px solid #D4D4D4;
+    top: 0;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+#MyControls {
+    position: absolute;
+    /* top: 5px; */
+    /* left: 5px; */
+    right: 15px;
+    bottom: 15px;
+    z-index: 1;
+    /* padding: 1em; */
+    /* font-size: 1em; */
+    /* cursor: pointer; */
+    /* box-shadow: 5px 5px 5px #888888; */
+    border: 1px solid #D4D4D4;
+    background-color: white;
+    border-radius: 5px;
+}
+
+#autodesk_logo {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 1;
+}
+#autodesk_logo img {
+    max-width: 50%;
+}
+
+#myUI {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
+    grid-column-gap: 5px;
+    grid-row-gap: 2px;
+    /*width: 600px;*/
+    /*background-color: blanchedalmond;*/
+    pointer-events: bounding-box;
+}
+
+
+.element {
+    /*background-color: red;*/
+    background-color: rgba(0,127,127,0.5);
+    width: 120px;
+    /*height: 160px;*/
+    box-shadow: 0px 0px 12px rgba(0,255,255,0.5);
+    border: 1px solid rgba(127,255,255,0.25);
+    text-align: center;
+    /*transition: all 1s;*/
+}
+.element:hover {
+    box-shadow: 0px 0px 12px rgba(0,255,255,0.75);
+    border: 1px solid rgba(127,255,255,0.75);
+}
+
+.cssOverlay {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+}
+
+.toolbarCameraRotation {
+    background-image: url(../img/emblem_camera.png);
+    background-size: 36px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+#editorContainer {
+    top: 10px;
+    left: 10px;
+    width: 500px;
+    height: 80vh;
+    resize: vertical;
+    max-height: 80vh;
+}
+
+#editor_area {
+    position: absolute;
+    top: 50px;
+    bottom: 15px;
+    left: 0;
+    right:0;
+    /*max-height: 90vh;*/
+    /*right: 10px;*/
+    /*top: 20%;*/
+    /*height: auto;*/
+    /*width: 30%;*/
+    /*min-width: 400px;*/
+    /*left: 0;*/
+    /*z-index: 99;*/
+    border: black 1px solid;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto 50px;
+}
+#editor {
+    /*position: absolute;*/
+    top: 0;
+    /*right: 10px;*/
+    /*bottom: 50px;*/
+    /*min-height: 500px;*/
+    /*height: auto;*/
+    /*width: 400px;*/
+    left: 0;
+    /*z-index: 99;*/
+    border: black 1px solid;
+}
+
+.toolbarButtonEditor {
+    background-image: url(../img/application_xml.png);
+    background-size: 36px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#buttonContainer {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
+    margin: 0px;
+    padding: 0px;
+    border: black 1px solid;
+    height: 30px;
+}
+
+.codeButton {
+    border: 0;
+    background: none;
+    box-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+    border-radius: 0px;
+    border: black 1px solid;
+    height: 80%;
+    font-size: large;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}

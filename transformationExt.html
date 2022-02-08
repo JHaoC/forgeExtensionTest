@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Forge-Extensions-Example</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no"/>
+    <meta charset="UTF-8">
+
+    <!-- Autodesk Forge Viewer files -->
+    <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/style.min.css" type="text/css">
+    <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js"></script>
+
+
+    <!-- Developer CSS -->
+    <link rel="stylesheet" href=".main.css"/>
+    <!-- Developer JS -->
+    <script src="./js/transformationExplorer.js"></script>
+    <script src="./js/app.js"></script>
+
+
+</head>
+
+<body>
+<div id="MyViewerDiv"></div>
+</body>
+<script>
+    let divId = "MyViewerDiv";
+    let documentId = "urn:dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLkpxU0RJQ0ZYVFNtY2xvN2RkUGU2ZXc_dmVyc2lvbj0x";
+    let tokenFetchingUrl = "";
+    let extensionArray = ['TransExplorerExtension'];
+    setupViewer(divId, documentId, tokenFetchingUrl, extensionArray);
+</script>
+</html>
