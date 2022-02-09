@@ -1,7 +1,44 @@
 
 let viewer = null;
 
-const data = {"access_token":"eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOnJlYWQiXSwiY2xpZW50X2lkIjoiTHpoeXJDeEZHVDZzdmdyRXRHOXRpM2pYdTdUcHR3ejUiLCJhdWQiOiJodHRwczovL2F1dG9kZXNrLmNvbS9hdWQvYWp3dGV4cDYwIiwianRpIjoiaE1YeFliQUhqdkxJV0xEcFVEdTVPYVZ4aFFrTXI3UEZQbk8weDhjUGlpYm9laEF4UmIxb2p6OTdZTDdQNkd5NCIsInVzZXJpZCI6IlpOWkpORk4yUk5BVCIsImV4cCI6MTY0NDM1MjY1M30.Co9WPcELLSY-mlrW0j-uwZNi0UburE2wt3mA8iZhJJ6i-6KCKMjw-QiiQmTK6ihhndeyA9tb3UjyKH_e-wRhoDZu1dPBWvqu4jZwkZOn27vCu7vxMQzP4ERUmRT5fxEuNcSH-D1gWRlOc_wo4_C4emv_er1jBk3cql7CN4hQ2Vt9gS78dAoidx8BEDqPepvhgcIQ6OkxffAuTZDfRNBlf3GDxyMwF6ecOkXbarY2gGYwk4VTYR6KyXd1fpvnleZcMdaCvlkoQP5B8QwXIHCMNUIGg0he1P6T_CBc9OIhCyzjl-R3ORZuZyut0O_IJakRD7F1riRsOa6dXKPhkthQng","refresh_token":"4vHEAKTaHnP5uLeTDTEXpof7G8g8bOCsUwIvNiwcC6","expires_in":"3599","token_type":"Bearer"}
+const tokenInfo = { "access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOnJlYWQiXSwiY2xpZW50X2lkIjoiTHpoeXJDeEZHVDZzdmdyRXRHOXRpM2pYdTdUcHR3ejUiLCJhdWQiOiJodHRwczovL2F1dG9kZXNrLmNvbS9hdWQvYWp3dGV4cDYwIiwianRpIjoiOHZTRUVLV1JOSnVTWVFhNHdwRTViS1VNcE1OR0lyOWpGaEN0aFVLM1BTTHBJbHBtQnlUTHRLWlBCN2VlVzNnTiIsInVzZXJpZCI6IlpOWkpORk4yUk5BVCIsImV4cCI6MTY0NDQzMDIyMH0.eKxfXwK9EN1OgOXnu4OXSQVawxlOhIZrRvi2Npd6tygrkECDuh_tHVc-S-HHK62dIR0ql6q6sehKrp6OxMJ78DYBAqTtpyN9qUyO0HgRKl3TnFMLWm9Vi2ageTSyKybg83v2AbSH5J2fTyMj3JcTx81BvCUEODhlyO1UuAkN-Uc_M5Qkf6p3WSzvGK7i3VsQYzh_aEYkDuzN5sa4ELQSpgmM4RE1o1ibbMdI-d5Cz1onZN4WV7lDYTSh4BeRjJNuM11ziVTwqtD1mob0PZrUaB76spyRghbTW9U_yGlUFSeX8Ns7oSTJOWBkS9YYXAKezvIIp0rj_NynLDhZsPe8NQ", "refresh_token": "oZOmOmdP3SsH4GBOBYMVlVEqJPeE2c7QEaCDkDnXBA", "expires_in": "3599", "token_type": "Bearer" }
+
+const myDataList = [
+  {
+    Id: 3930,
+    position: { x: -13.07, y: 14.35, z: 170.38 },
+    DeviceInfo:
+    {
+      sensorManufacturer: "Imaginary Co. Ltd.",
+      sensorModel: "BTE-2900x",
+    }
+  },
+  { Id: 4398, position: { x: -9.87, y: 1.22, z: 170.37 } , DeviceInfo:
+  {
+    sensorManufacturer: "Imaginary Co. Ltd.",
+    sensorModel: "BTE-2901x",
+  }},
+  { Id: 4365, position: { x: -0, y: -8.65, z: 170.38 } , DeviceInfo:
+  {
+    sensorManufacturer: "Imaginary Co. Ltd.",
+    sensorModel: "BTE-2902x",
+  }},
+  { Id: 3934, position: { x: 0, y: 11.09, z: 170.38 } , DeviceInfo:
+  {
+    sensorManufacturer: "Imaginary Co. Ltd.",
+    sensorModel: "BTE-2903x",
+  }},
+  { Id: 4243, position: { x: 9.87, y: 1.22, z: 170.38 } , DeviceInfo:
+  {
+    sensorManufacturer: "Imaginary Co. Ltd.",
+    sensorModel: "BTE-2904x",
+  }},
+  { Id: 4332, position: { x: 13.07, y: 14.35, z: 170.38 } , DeviceInfo:
+  {
+    sensorManufacturer: "Imaginary Co. Ltd.",
+    sensorModel: "BTE-2905x",
+  }}
+];
 
 function setupViewer(divId, documentId, exrtensionArray) {
 
@@ -9,14 +46,7 @@ function setupViewer(divId, documentId, exrtensionArray) {
     env: 'AutodeskProduction',
     api: "derivativeV2",
     getAccessToken: (onGetAccessToken) => {
-      // fetch(tokenFetchingUrl)
-      //   .then(response => response.json())
-      //   .then(data => {
-
-      let accessToken = data["access_token"];
-      let expireTimeSeconds = data["expires_in"];
-      onGetAccessToken(accessToken, expireTimeSeconds);
-      // })
+      onGetAccessToken(tokenInfo["access_token"], tokenInfo["expires_in"]);
     }
   };
 
@@ -68,25 +98,64 @@ function setupViewer(divId, documentId, exrtensionArray) {
     const viewableData = new DataVizCore.ViewableData();
     viewableData.spriteSize = 24; // Sprites as points of size 24 x 24 pixels
 
-    const myDataList = [
-      // { position: { x: 10, y: 2, z: 3 } },
-      // { position: { x: 20, y: 22, z: 3 } },
-      // { position: { x: -106, y: -402, z: -53 } },
-      { position: { x: 0, y: 0, z: 0 } },
-      { position: { x: 19.49, y: 32.99, z: -21.25 } },
-      // { position: { x: -13.07, y: 14.35, z: 170.38 } }
-    ];
-
-    myDataList.forEach((myData, index) => {
-      const dbId = 10 + index;
+    // myDataList.forEach((myData, index) => {
+    //   const dbId = 10 + index;
+    myDataList.forEach((myData) => {
+      const dbId = myData.Id;
       const position = myData.position;
-      const viewable = new DataVizCore.SpriteViewable(position, style, dbId);
+      const spriteViewable = new DataVizCore.SpriteViewable(position, style, dbId);
 
-      viewableData.addViewable(viewable);
+
+      spriteViewable.myContextData = myData.DeviceInfo;
+      viewableData.addViewable(spriteViewable);
     });
 
     await viewableData.finish();
     dataVizExtn.addViewables(viewableData);
+
+
+    function onSpriteHovering(event) {
+      const targetDbId = event.dbId;
+      const viewables = viewableData.viewables;
+      const viewable = viewables.find((v) => v.dbId === targetDbId);
+
+      if (event.hovering) {
+        console.log(`The mouse hovers over ${targetDbId}`);
+        console.log(event);
+        if (viewable && viewable.myContextData) {
+          const data = viewable.myContextData;
+          console.log(`Sensor model: ${data.sensorModel}`);
+          // Should print "Sensor model: BTE-2900x"
+        }
+      }
+      // else {
+      //   console.log(`The mouse hovers off ${targetDbId}`);
+      // }
+    }
+
+    function onSpriteClicked(event) {
+      console.log(`Sprite clicked: ${event.dbId}`);
+      const targetDbId = event.dbId;
+      const viewables = viewableData.viewables;
+      const viewable = viewables.find((v) => v.dbId === targetDbId);
+
+      if (viewable && viewable.myContextData) {
+        const data = viewable.myContextData;
+        console.log(`Sensor model: ${data.sensorModel}`);
+
+        document.getElementById("DeviceId").innerText = targetDbId;
+        document.getElementById("DeviceModel").innerText = data.sensorModel;
+        document.getElementById("DeviceManufacturer").innerText = data.sensorManufacturer;
+        document.getElementById("Temperature").innerText = 100*Math.random();
+        document.getElementById("Pressure").innerText = 150*Math.random();
+      }
+
+      // console.log(event);
+    }
+
+    // Register event handlers for these two events.
+    viewer.addEventListener(DataVizCore.MOUSE_HOVERING, onSpriteHovering);
+    viewer.addEventListener(DataVizCore.MOUSE_CLICK, onSpriteClicked);
 
     // function startCameraTransition() {
     //     viewer.hide(20524); // Hide Roof Panels

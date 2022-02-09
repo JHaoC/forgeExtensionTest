@@ -60,6 +60,26 @@ class TransExplorerExtension extends Autodesk.Viewing.Extension {
         this.infoZ = document.getElementById("infoZ");
 
 
+        let infoPanelDevice = document.createElement('div');
+        infoPanelDevice.id = "infoPanelDevice";
+        infoPanelDevice.style.cssText = `
+            position: absolute;
+            left: 15px;
+            bottom: 55px;
+            z-index: 2;
+            border: 2px solid #ccc;
+            background-color: #ffffff;
+            border-radius: 5px;
+            padding: 10px;`;
+
+        infoPanelDevice.innerHTML = `
+        <p>Device ID: <span id="DeviceId"></span></p>
+        <p>Manufacturer: <span id="DeviceManufacturer"></span></p>
+        <p>Model: <span id="DeviceModel"></span></p>
+        <p>Temperature (F): <span id="Temperature"></span></p>
+        <p>Pressure (PSI): <span id="Pressure"></span></p>
+        `;
+        document.body.appendChild(infoPanelDevice);
         return true;
     }
     unload() {
@@ -84,14 +104,7 @@ class TransExplorerExtension extends Autodesk.Viewing.Extension {
             nodeData.Name = this.findNodeNameById(selectedNode);
             nodeData.Parent = this.findNodeNameById(this.tree.getNodeParentId(selectedNode));
             let transMat = this.getFragmentWorldMatrixByNodeId(event.nodeArray[0]);
-            console.log(transMat);
-            // // continue if it has transformation Matrix (meaning it is not a "group node")
-            // if (transMat) {
-            //     nodeData.position = transMat.getPosition();
-            // } else {
-            //     nodeData.position = new THREE.Vector3();
-            // }
-            // console.log(nodeData);
+            //console.log(transMat);
             this.infoName.innerText = nodeData.Name;
             this.infoParent.innerText = nodeData.Parent;
             this.infoId.innerText = nodeData.ID;
