@@ -1,43 +1,30 @@
 
 let viewer = null;
 
-const tokenInfo = { "access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOnJlYWQiXSwiY2xpZW50X2lkIjoiTHpoeXJDeEZHVDZzdmdyRXRHOXRpM2pYdTdUcHR3ejUiLCJhdWQiOiJodHRwczovL2F1dG9kZXNrLmNvbS9hdWQvYWp3dGV4cDYwIiwianRpIjoiOHZTRUVLV1JOSnVTWVFhNHdwRTViS1VNcE1OR0lyOWpGaEN0aFVLM1BTTHBJbHBtQnlUTHRLWlBCN2VlVzNnTiIsInVzZXJpZCI6IlpOWkpORk4yUk5BVCIsImV4cCI6MTY0NDQzMDIyMH0.eKxfXwK9EN1OgOXnu4OXSQVawxlOhIZrRvi2Npd6tygrkECDuh_tHVc-S-HHK62dIR0ql6q6sehKrp6OxMJ78DYBAqTtpyN9qUyO0HgRKl3TnFMLWm9Vi2ageTSyKybg83v2AbSH5J2fTyMj3JcTx81BvCUEODhlyO1UuAkN-Uc_M5Qkf6p3WSzvGK7i3VsQYzh_aEYkDuzN5sa4ELQSpgmM4RE1o1ibbMdI-d5Cz1onZN4WV7lDYTSh4BeRjJNuM11ziVTwqtD1mob0PZrUaB76spyRghbTW9U_yGlUFSeX8Ns7oSTJOWBkS9YYXAKezvIIp0rj_NynLDhZsPe8NQ", "refresh_token": "oZOmOmdP3SsH4GBOBYMVlVEqJPeE2c7QEaCDkDnXBA", "expires_in": "3599", "token_type": "Bearer" }
+const tokenInfo = {"access_token":"eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOnJlYWQiXSwiY2xpZW50X2lkIjoiTHpoeXJDeEZHVDZzdmdyRXRHOXRpM2pYdTdUcHR3ejUiLCJhdWQiOiJodHRwczovL2F1dG9kZXNrLmNvbS9hdWQvYWp3dGV4cDYwIiwianRpIjoib2hEbDdWVWVXcU05QkVWTEE3NkVNa3RVcEdFbEVBWnR6d0QxSFBSdFg2ajZLYzJKUDBHbE8zZG16ZVRYell5dCIsInVzZXJpZCI6IlpOWkpORk4yUk5BVCIsImV4cCI6MTY0NDQ0NTgzNn0.I8nSHyaHbvohWGwKomdsX9kx8_UOEMT_7X_pqXkjskOlpGjfhnRknc39z1QVmRMGKPuDInrMICC4nUMBG883wPQ0BI9PFW0WClAdFP2fU8h4n9-4pLrO9b7iaLUrvm7TKs1He56vHp51DG1ezKC6bfCOjrHziNATXcpNQbVLHmanEU4Qx9Y6piTsK0b7gQMej96zYDCpO-iZcPPC0MB7G_Thk2lNHezStGPIziORMazk5svsq0dO2FPOS2QVHnfRVCTmvmDYEpdfO2EWIK1Pl6PaWjhaxj_u0tTKyquSEoK9u1JdnP5RZl8d-OkMtQGwM1xmGVj3A2UK7QwibfUd3Q","refresh_token":"q84EuZfcjSu5CWpxAieXPUycAHBD0eqH4CssoVMCKv","expires_in":"3599","token_type":"Bearer"}
 
 const myDataList = [
   {
-    Id: 3930,
-    position: { x: -13.07, y: 14.35, z: 170.38 },
-    DeviceInfo:
+    Id: 3934, position: { x: 0, y: 11.09, z: 170.38 }, DeviceInfo:
     {
       sensorManufacturer: "Imaginary Co. Ltd.",
-      sensorModel: "BTE-2900x",
+      sensorModel: "BTE-2903x",
     }
   },
-  { Id: 4398, position: { x: -9.87, y: 1.22, z: 170.37 } , DeviceInfo:
   {
-    sensorManufacturer: "Imaginary Co. Ltd.",
-    sensorModel: "BTE-2901x",
-  }},
-  { Id: 4365, position: { x: -0, y: -8.65, z: 170.38 } , DeviceInfo:
+    Id: 5155, position: { x: 13.12, y: 14.34, z: 5.10 }, DeviceInfo:
+    {
+      sensorManufacturer: "Imaginary Co. Ltd.",
+      sensorModel: "BTE-2903x",
+    }
+  },
   {
-    sensorManufacturer: "Imaginary Co. Ltd.",
-    sensorModel: "BTE-2902x",
-  }},
-  { Id: 3934, position: { x: 0, y: 11.09, z: 170.38 } , DeviceInfo:
-  {
-    sensorManufacturer: "Imaginary Co. Ltd.",
-    sensorModel: "BTE-2903x",
-  }},
-  { Id: 4243, position: { x: 9.87, y: 1.22, z: 170.38 } , DeviceInfo:
-  {
-    sensorManufacturer: "Imaginary Co. Ltd.",
-    sensorModel: "BTE-2904x",
-  }},
-  { Id: 4332, position: { x: 13.07, y: 14.35, z: 170.38 } , DeviceInfo:
-  {
-    sensorManufacturer: "Imaginary Co. Ltd.",
-    sensorModel: "BTE-2905x",
-  }}
+    Id: 5339, position: { x: 53.8, y: -40.82, z: -94.11 }, DeviceInfo:
+    {
+      sensorManufacturer: "Imaginary Co. Ltd.",
+      sensorModel: "BTE-2903x",
+    }
+  }
 ];
 
 function setupViewer(divId, documentId, exrtensionArray) {
@@ -125,12 +112,22 @@ function setupViewer(divId, documentId, exrtensionArray) {
         if (viewable && viewable.myContextData) {
           const data = viewable.myContextData;
           console.log(`Sensor model: ${data.sensorModel}`);
-          // Should print "Sensor model: BTE-2900x"
+
+          document.getElementById("DeviceId").innerText = targetDbId;
+          document.getElementById("DeviceModel").innerText = data.sensorModel;
+          document.getElementById("DeviceManufacturer").innerText = data.sensorManufacturer;
+          document.getElementById("Temperature").innerText =  (23 + Math.random()).toFixed(1);
+          document.getElementById("Pressure").innerText = (25 + Math.random()).toFixed(1);
         }
       }
-      // else {
-      //   console.log(`The mouse hovers off ${targetDbId}`);
-      // }
+      else {
+        console.log(`The mouse hovers off ${targetDbId}`);
+        document.getElementById("DeviceId").innerText = "";
+          document.getElementById("DeviceModel").innerText = "";
+          document.getElementById("DeviceManufacturer").innerText = "";
+          document.getElementById("Temperature").innerText = "";
+          document.getElementById("Pressure").innerText = "";
+      }
     }
 
     function onSpriteClicked(event) {
@@ -146,15 +143,15 @@ function setupViewer(divId, documentId, exrtensionArray) {
         document.getElementById("DeviceId").innerText = targetDbId;
         document.getElementById("DeviceModel").innerText = data.sensorModel;
         document.getElementById("DeviceManufacturer").innerText = data.sensorManufacturer;
-        document.getElementById("Temperature").innerText = 100*Math.random();
-        document.getElementById("Pressure").innerText = 150*Math.random();
+        document.getElementById("Temperature").innerText = (23 + Math.random()).toFixed(1);
+        document.getElementById("Pressure").innerText = (25 + Math.random()).toFixed(1);
       }
 
       // console.log(event);
     }
 
     // Register event handlers for these two events.
-    viewer.addEventListener(DataVizCore.MOUSE_HOVERING, onSpriteHovering);
+    //viewer.addEventListener(DataVizCore.MOUSE_HOVERING, onSpriteHovering);
     viewer.addEventListener(DataVizCore.MOUSE_CLICK, onSpriteClicked);
 
     // function startCameraTransition() {
