@@ -3,10 +3,9 @@ let viewer = null;
 
 // Take token from Forge or https://mdskdtpdev.azurewebsites.net/api/forge/SignIn
 const tokenInfo = {}
-
 const myDataList = [
   {
-    Id: 3934, position: { x: 0, y: 11.09, z: 170.38 }, DeviceInfo:
+    Id: 5221, position: { x: -21.62, y: -20.40, z: 50.96 }, DeviceInfo:
     {
       sensorManufacturer: "Imaginary Co. Ltd.",
       sensorModel: "BTE-2903x",
@@ -20,7 +19,7 @@ const myDataList = [
     }
   },
   {
-    Id: 5339, position: { x: 53.8, y: -40.82, z: -94.11 }, DeviceInfo:
+    Id: 5233, position: { x: 39.31, y: -38.09, z: -90.57 }, DeviceInfo:
     {
       sensorManufacturer: "Imaginary Co. Ltd.",
       sensorModel: "BTE-2903x",
@@ -102,34 +101,34 @@ function setupViewer(divId, documentId, exrtensionArray) {
     dataVizExtn.addViewables(viewableData);
 
 
-    function onSpriteHovering(event) {
-      const targetDbId = event.dbId;
-      const viewables = viewableData.viewables;
-      const viewable = viewables.find((v) => v.dbId === targetDbId);
+    // function onSpriteHovering(event) {
+    //   const targetDbId = event.dbId;
+    //   const viewables = viewableData.viewables;
+    //   const viewable = viewables.find((v) => v.dbId === targetDbId);
 
-      if (event.hovering) {
-        console.log(`The mouse hovers over ${targetDbId}`);
-        console.log(event);
-        if (viewable && viewable.myContextData) {
-          const data = viewable.myContextData;
-          console.log(`Sensor model: ${data.sensorModel}`);
+    //   if (event.hovering) {
+    //     console.log(`The mouse hovers over ${targetDbId}`);
+    //     console.log(event);
+    //     if (viewable && viewable.myContextData) {
+    //       const data = viewable.myContextData;
+    //       console.log(`Sensor model: ${data.sensorModel}`);
 
-          document.getElementById("DeviceId").innerText = targetDbId;
-          document.getElementById("DeviceModel").innerText = data.sensorModel;
-          document.getElementById("DeviceManufacturer").innerText = data.sensorManufacturer;
-          document.getElementById("Temperature").innerText =  (23 + Math.random()).toFixed(1);
-          document.getElementById("Pressure").innerText = (25 + Math.random()).toFixed(1);
-        }
-      }
-      else {
-        console.log(`The mouse hovers off ${targetDbId}`);
-        document.getElementById("DeviceId").innerText = "";
-          document.getElementById("DeviceModel").innerText = "";
-          document.getElementById("DeviceManufacturer").innerText = "";
-          document.getElementById("Temperature").innerText = "";
-          document.getElementById("Pressure").innerText = "";
-      }
-    }
+    //       document.getElementById("DeviceId").innerText = targetDbId;
+    //       document.getElementById("DeviceModel").innerText = data.sensorModel;
+    //       document.getElementById("DeviceManufacturer").innerText = data.sensorManufacturer;
+    //       document.getElementById("Temperature").innerText =  (23 + Math.random()).toFixed(1);
+    //       document.getElementById("Pressure").innerText = (25 + Math.random()).toFixed(1);
+    //     }
+    //   }
+    //   else {
+    //     console.log(`The mouse hovers off ${targetDbId}`);
+    //     document.getElementById("DeviceId").innerText = "";
+    //       document.getElementById("DeviceModel").innerText = "";
+    //       document.getElementById("DeviceManufacturer").innerText = "";
+    //       document.getElementById("Temperature").innerText = "";
+    //       document.getElementById("Pressure").innerText = "";
+    //   }
+    // }
 
     function onSpriteClicked(event) {
       console.log(`Sprite clicked: ${event.dbId}`);
@@ -144,8 +143,8 @@ function setupViewer(divId, documentId, exrtensionArray) {
         document.getElementById("DeviceId").innerText = targetDbId;
         document.getElementById("DeviceModel").innerText = data.sensorModel;
         document.getElementById("DeviceManufacturer").innerText = data.sensorManufacturer;
-        document.getElementById("Temperature").innerText = (23 + Math.random()).toFixed(1);
-        document.getElementById("Pressure").innerText = (25 + Math.random()).toFixed(1);
+        document.getElementById("Load").innerText = (2500 + 100*Math.random()).toFixed(2);
+        // document.getElementById("Pressure").innerText = (25 + Math.random()).toFixed(1);
       }
 
       // console.log(event);

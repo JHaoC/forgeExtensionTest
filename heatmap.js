@@ -50,7 +50,7 @@ class HeatmapExtension extends Autodesk.Viewing.Extension {
                 color.setHSL( 0, 1.0, 0.5);
             }
             else if(yellowitems.includes(id)) { 
-                color.setHSL( 0.6, 0.9, 0.8);
+                color.setHSL( 0.1, 1.0, 0.5);
             }
             else {
                 color.setHSL( 0.33, 1.0, 0.5);

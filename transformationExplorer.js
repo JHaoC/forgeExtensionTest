@@ -76,8 +76,7 @@ class TransExplorerExtension extends Autodesk.Viewing.Extension {
         <p>Device ID: <span id="DeviceId"></span></p>
         <p>Manufacturer: <span id="DeviceManufacturer"></span></p>
         <p>Model: <span id="DeviceModel"></span></p>
-        <p>Temperature (F): <span id="Temperature"></span></p>
-        <p>Pressure (PSI): <span id="Pressure"></span></p>
+        <p>Load (KN): <span id="Load"></span></p>
         `;
         document.body.appendChild(infoPanelDevice);
         return true;
