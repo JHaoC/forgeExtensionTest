@@ -1,6 +1,5 @@
 // Take token from Forge or https://mdskdtpdev.azurewebsites.net/api/forge/SignIn
-const tokenInfo = { "access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOnJlYWQiXSwiY2xpZW50X2lkIjoiTHpoeXJDeEZHVDZzdmdyRXRHOXRpM2pYdTdUcHR3ejUiLCJhdWQiOiJodHRwczovL2F1dG9kZXNrLmNvbS9hdWQvYWp3dGV4cDYwIiwianRpIjoiWG5TeHJrSzJvNWVPdXlReGg0RlFxSU4zTndIeU5WN1RvSzRrT3EwMXg2R1h3OUluQW1aQ1JQTkZxYjB0NWU0RCIsInVzZXJpZCI6IlpOWkpORk4yUk5BVCIsImV4cCI6MTY0NDYxNDE1M30.HuiNA1yLEVruw_uVVgtNBFqbXE09llfAqgWHu9ex1I2pjzchOvw6dwqcn8wRu-VFk3ziVtSRc7A2yddJiGYHc654pf6hwyfdflYjaz55U3PasogDIP6CntdooyllUFgCK9GwqxpBhUAMhDBC05-FD2TSJnDIIsvbDqIEtPae7E6fW3PAB3z3rgr5BABNTs7f3aqgQADZbsZScLLJN3HU8LFi3jrqbgy55k6ep_HiIUFqjlcLr_ekNz-OIbqVzSwM7lZrlMjMXS6tuIN2ji2LFZ8tiNt6T-XsdmcVvpL8FtoPxZgSuE7SC36WdytEEQRq5_4CeL3U4uo4dv8iSFumyg", "refresh_token": "zCh7jdc61XRd7t5MlQzZ6V16TcVw227N7miEp4YNHV", "expires_in": "3599", "token_type": "Bearer" }
-
+const tokenInfo = {}
 // const myDataList = [
 //   {
 //     Id: 5221, position: { x: -21.62, y: -20.40, z: 50.96 }, DeviceInfo:
