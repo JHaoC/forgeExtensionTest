@@ -17,7 +17,8 @@
 
     <!-- Developer JS -->
     <script src="./transformationExplorer.js"></script>
-    <script src="./heatmap.js"></script>
+    <script src="./loadmap.js"></script>
+    <script src="./sprite.js"></script>
     <script src="./app.js"></script>
 
 
@@ -28,8 +29,9 @@
 </body>
 <script>
     let divId = "MyViewerDiv";
-    let documentId = "urn:dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLkpxU0RJQ0ZYVFNtY2xvN2RkUGU2ZXc_dmVyc2lvbj0x";
-    let extensionArray = ['TransExplorerExtension', 'HeatmapExtension'];
+    let documentId = "urn:dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLlRXS0tHanRmUm0tOWU5TG9uaW9XNlE_dmVyc2lvbj0y";
+    //let documentId = "urn:dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLlN2Mkg4aUFuUXZxems2R1hnbHM1VEE_dmVyc2lvbj00";
+    let extensionArray = ['TransExplorerExtension', 'LoadmapExtension', 'StripeExtension', 'Autodesk.DataVisualization'];
     setupViewer(divId, documentId, extensionArray);
 </script>
 </html>
