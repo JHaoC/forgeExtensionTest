@@ -93,13 +93,15 @@ class TransExplorerExtension extends Autodesk.Viewing.Extension {
             this.infoX.innerText = transMat.matrix.x;
             this.infoY.innerText = transMat.matrix.y;
             this.infoZ.innerText = transMat.matrix.z;
-            if (this.infoParent.innerText === "Rooms") {
+            // if (this.infoParent.innerText === "Rooms") {
+            //     this.btm.style.display = "block";
+            // }
+            // else {
+            //     this.btm.style.display = "none";
+            // }
+              if (this.btm.style.display === "none") {
                 this.btm.style.display = "block";
             }
-            else {
-                this.btm.style.display = "none";
-            }
-
         }
 
     }
