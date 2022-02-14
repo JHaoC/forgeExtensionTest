@@ -61,7 +61,7 @@ class TransExplorerExtension extends Autodesk.Viewing.Extension {
         this.infoY = document.getElementById("infoY");
         this.infoZ = document.getElementById("infoZ");
         this.btm = document.getElementById("addSensorBtn");
-        this.btm.style.display = "none";;
+        this.btm.style.display = "none";
         return true;
     }
     unload() {
