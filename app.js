@@ -1,5 +1,6 @@
 // Take token from Forge or https://mdskdtpdev.azurewebsites.net/api/forge/SignIn
 const tokenInfo = {}
+
 // const myDataList = [
 //   {
 //     Id: 5221, position: { x: -21.62, y: -20.40, z: 50.96 }, DeviceInfo:
@@ -176,20 +177,22 @@ async function onModelLoaded(data) {
   let levelsExt;
   if (aecModelData) {
     levelsExt = await viewer.loadExtension("Autodesk.AEC.LevelsExtension", {
-      doNotCreateUI: true,
+      doNotCreateUI: false,
     });
   }
 
   // Select Level 3.
   const floorData = levelsExt.floorSelector.floorData;
   const floor = floorData[2];
+  console.log(floor);
   levelsExt.floorSelector.selectFloor(floor.index, true);
 
   // Generate surfaceshading data by mapping devices to rooms.
   const structureInfo = new Autodesk.DataVisualization.Core.ModelStructureInfo(
     data.model
   );
-  console.log(structureInfo);
+  //console.log(structureInfo);
+
 
   const heatmapData = await structureInfo.generateSurfaceShadingData(devices);
   //const heatmapData = await structureInfo.generateSurfaceShadingData();
@@ -197,12 +200,26 @@ async function onModelLoaded(data) {
 
   // Setup surfaceshading
   await dataVizExtn.setupSurfaceShading(data.model, heatmapData);
-
-  // dataVizExt.registerSurfaceShadingColors("co2", [0x00ff00, 0xff0000]);
   dataVizExtn.registerSurfaceShadingColors("temperature", [0xff0000, 0x0000ff]);
 
-  // dataVizExt.registerSurfaceShadingColors("co2", [0x00ff00]);
-  //dataVizExt.registerSurfaceShadingColors("temperature", [0xff0000]);
+  const levels = await structureInfo.getLevelRoomsMap();
+  console.log(levels);
+
+  const rooms = await levels.getRoomsOnLevel("Level 3");
+  console.log(rooms);
+
+  // const room = rooms.find(a=>a.name=="CORRIDOR 490 [1779842]");
+  // console.log(room);
+  // room.addDevice(devices[0]);
+
+  const roomswithdevices = await levels.getRoomsOnLevel("Level 3", true);
+  console.log(roomswithdevices);
+
+
+
+  // dataVizExt.registerSurfaceShadingColors("co2", [0x00ff00, 0xff0000]);
+ 
+
 
   /**
    * Interface for application to decide the current value for the heatmap
@@ -216,28 +233,39 @@ async function onModelLoaded(data) {
 
   dataVizExtn.renderSurfaceShading(floor.name, "temperature", getSensorValue);
 
+  document.getElementById("addSensorBtn").addEventListener("click", async () => {
+    const itemType = document.getElementById("infoParent").innerText;
+    if(itemType !== "Rooms") return;
+    let newdevice = {
+      id: document.getElementById("infoName").innerText,
+    dbId: Number(document.getElementById("infoId").innerText),
+    position: {
+      x: Number(document.getElementById("infoX").innerText),
+      y: Number(document.getElementById("infoY").innerText),
+      z: Number(document.getElementById("infoZ").innerText),
+    },
+    type: "temperature",
+    sensorTypes: ["temperature"],
+    DeviceInfo:
+    {
+      sensorManufacturer: "Imaginary Co. Ltd.",
+      sensorModel: "BTE-2903x",
+    }
+    }
+    devices.push(newdevice);
 
+    // const room = rooms.find(a=>a.id==document.getElementById("infoId").innerText);
+    // console.log(room);
+    // room.addDevice(newdevice);
+    // // heatmapData.push(newdevice);
 
-  // function startCameraTransition() {
-  //     viewer.hide(20524); // Hide Roof Panels
-  //     viewer.autocam.shotParams.destinationPercent = 3; // slow down camera movement
-  //     viewer.autocam.shotParams.duration = 10;
-  //     // move camera to hero view
-  //     viewer.setViewFromArray([
-  //         1.5082,
-  //         -30.912,
-  //         88.6316,
-  //         -13.5,
-  //         -1.87081,
-  //         21.0,
-  //         0,
-  //         0,
-  //         1,
-  //         1.865,
-  //         1.22,
-  //         1,
-  //         0,
-  //     ]);
-  // }
-  // startCameraTransition(viewer);
+    dataVizExtn.removeSurfaceShading();
+    const newheapdateData = await structureInfo.generateSurfaceShadingData(devices);
+    await dataVizExtn.setupSurfaceShading(data.model, newheapdateData);
+    dataVizExtn.renderSurfaceShading(floor.name, "temperature", getSensorValue);
+    // dataVizExtn.updateSurfaceShading(getSensorValue);
+    
+
+  });
+
 }

@@ -16,6 +16,7 @@ class TransExplorerExtension extends Autodesk.Viewing.Extension {
         this.infoX = null;
         this.infoY = null;
         this.infoZ = null;
+        this.btm = null;
 
         this.processSelection = this.processSelection.bind(this);
         this.getFragmentWorldMatrixByNodeId = this.getFragmentWorldMatrixByNodeId.bind(this);
@@ -49,6 +50,7 @@ class TransExplorerExtension extends Autodesk.Viewing.Extension {
         <p>xPosition: <span id="infoX"></span></p>
         <p>yPosition: <span id="infoY"></span></p>
         <p>zPosition: <span id="infoZ"></span></p>
+        <button id="addSensorBtn">Add new Sensor</button>
         `;
 
         document.body.appendChild(infoPanel);
@@ -58,6 +60,8 @@ class TransExplorerExtension extends Autodesk.Viewing.Extension {
         this.infoX = document.getElementById("infoX");
         this.infoY = document.getElementById("infoY");
         this.infoZ = document.getElementById("infoZ");
+        this.btm = document.getElementById("addSensorBtn");
+        this.btm.style.display = "none";;
         return true;
     }
     unload() {
@@ -89,6 +93,12 @@ class TransExplorerExtension extends Autodesk.Viewing.Extension {
             this.infoX.innerText = transMat.matrix.x;
             this.infoY.innerText = transMat.matrix.y;
             this.infoZ.innerText = transMat.matrix.z;
+            if (this.infoParent.innerText === "Rooms") {
+                this.btm.style.display = "block";
+            }
+            else {
+                this.btm.style.display = "none";
+            }
 
         }
 
@@ -121,8 +131,8 @@ class TransExplorerExtension extends Autodesk.Viewing.Extension {
 
         this.tree.enumNodeFragments(nodeId, function (frag) {
             let box = new THREE.Box3();
-            fragList.getWorldBounds( frag, box );
-            bounds.union( box );
+            fragList.getWorldBounds(frag, box);
+            bounds.union(box);
             result.fragId.push(frag);
             //result.matrix.push(matrix);
         }, true);
