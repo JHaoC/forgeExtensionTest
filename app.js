@@ -1,30 +1,6 @@
 // Take token from Forge or https://mdskdtpdev.azurewebsites.net/api/forge/SignIn
 const tokenInfo = {}
 
-// const myDataList = [
-//   {
-//     Id: 5221, position: { x: -21.62, y: -20.40, z: 50.96 }, DeviceInfo:
-//     {
-//       sensorManufacturer: "Imaginary Co. Ltd.",
-//       sensorModel: "BTE-2903x",
-//     }
-//   },
-//   {
-//     Id: 5155, position: { x: 13.12, y: 14.34, z: 5.10 }, DeviceInfo:
-//     {
-//       sensorManufacturer: "Imaginary Co. Ltd.",
-//       sensorModel: "BTE-2903x",
-//     }
-//   },
-//   {
-//     Id: 5233, position: { x: 39.31, y: -38.09, z: -90.57 }, DeviceInfo:
-//     {
-//       sensorManufacturer: "Imaginary Co. Ltd.",
-//       sensorModel: "BTE-2903x",
-//     }
-//   }
-// ];
-
 let devices = [
   {
     id: "CORRIDOR 490 [1779842]",
@@ -60,6 +36,8 @@ let devices = [
   },
 ];
 
+let viewer;
+
 function setupViewer(divId, documentId, exrtensionArray) {
 
   let options = {
@@ -72,7 +50,7 @@ function setupViewer(divId, documentId, exrtensionArray) {
   };
 
   var config3d = { extensions: exrtensionArray };
-  let viewer;
+  //let viewer;
   Autodesk.Viewing.Initializer(options, () => {
     viewer = new Autodesk.Viewing.GuiViewer3D(document.getElementById(divId), config3d);
     //viewer = new Autodesk.Viewing.GuiViewer3D(document.getElementById(divId));
@@ -218,7 +196,7 @@ async function onModelLoaded(data) {
 
 
   // dataVizExt.registerSurfaceShadingColors("co2", [0x00ff00, 0xff0000]);
- 
+
 
 
   /**
@@ -235,22 +213,22 @@ async function onModelLoaded(data) {
 
   document.getElementById("addSensorBtn").addEventListener("click", async () => {
     const itemType = document.getElementById("infoParent").innerText;
-    if(itemType !== "Rooms") return;
+    if (itemType !== "Rooms") return;
     let newdevice = {
       id: document.getElementById("infoName").innerText,
-    dbId: Number(document.getElementById("infoId").innerText),
-    position: {
-      x: Number(document.getElementById("infoX").innerText),
-      y: Number(document.getElementById("infoY").innerText),
-      z: Number(document.getElementById("infoZ").innerText),
-    },
-    type: "temperature",
-    sensorTypes: ["temperature"],
-    DeviceInfo:
-    {
-      sensorManufacturer: "Imaginary Co. Ltd.",
-      sensorModel: "BTE-2903x",
-    }
+      dbId: Number(document.getElementById("infoId").innerText),
+      position: {
+        x: Number(document.getElementById("infoX").innerText),
+        y: Number(document.getElementById("infoY").innerText),
+        z: Number(document.getElementById("infoZ").innerText),
+      },
+      type: "temperature",
+      sensorTypes: ["temperature"],
+      DeviceInfo:
+      {
+        sensorManufacturer: "Imaginary Co. Ltd.",
+        sensorModel: "BTE-2903x",
+      }
     }
     devices.push(newdevice);
 
@@ -264,8 +242,92 @@ async function onModelLoaded(data) {
     await dataVizExtn.setupSurfaceShading(data.model, newheapdateData);
     dataVizExtn.renderSurfaceShading(floor.name, "temperature", getSensorValue);
     // dataVizExtn.updateSurfaceShading(getSensorValue);
-    
+
 
   });
 
+  //testForge()
+
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Test use db of Forge
+// More details https://forge.autodesk.com/en/docs/viewer/v7/developers_guide/advanced_options/propdb-queries/
+///////////////////////////////////////////////////////////////////////////////
+function testForge() {
+
+  var thePromise = viewer.model.getPropertyDb().executeUserFunction(userFunction);
+  thePromise.then(function (retValue) {
+
+    //if (retValue === 42) {
+    //  console.log('We got the expected value back.');
+    //}
+
+    if (!retValue) {
+      console.log("Model doesn't contain property 'Mass'.");
+      return;
+    }
+
+    var mostMassiveId = retValue.id;
+    viewer.select(mostMassiveId);
+    viewer.fitToView([mostMassiveId]);
+    console.log('Most massive part is', mostMassiveId, 'with Mass:', retValue.mass);
+  });
+
+  function userFunction(pdb) {
+
+    //return 42;
+
+    var attrIdMass = -1;
+
+    // Iterate over all attributes and find the index to the one we are interested in
+    pdb.enumAttributes(function (i, attrDef, attrRaw) {
+
+      var name = attrDef.name;
+      
+
+      if (name === 'System Classification') {
+        attrIdMass = i;
+        console.log(attrDef);
+        return true; // to stop iterating over the remaining attributes.
+      }
+    });
+
+    // Early return is the model doesn't contain data for "Mass".
+    if (attrIdMass === -1)
+      return null;
+
+    // Now iterate over all parts to find out which one is the largest.
+    var maxValue = 0;
+    var maxValId = -1;
+    pdb.enumObjects(function (dbId) {
+
+      // For each part, iterate over their properties.
+      pdb.enumObjectProperties(dbId, function (attrId, valId) {
+
+        // Only process 'Mass' property.
+        // The word "Property" and "Attribute" are used interchangeably.
+        if (attrId === attrIdMass) {
+
+          var value = pdb.getAttrValue(attrId, valId);
+
+          console.log(value);
+          // if (value > maxValue) {
+          //   maxValue = value;
+          //   maxValId = dbId;
+          // }
+
+          // Stop iterating over additional properties when "Mass" is found.
+          return true;
+        }
+      });
+    });
+
+    // Return results
+    // return {
+    //   id: maxValId,
+    //   mass: maxValue
+    // }
+  }
 }
